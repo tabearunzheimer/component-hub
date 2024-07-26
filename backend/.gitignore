@@ -1,0 +1,12 @@
+node_modules
+package-lock.json
+docs/*
+!docs/CHANGELOG.md
+logs
+dist
+scripts/nginx-local-ssl-copy.sh
+coverage
+junit.xml
+.vercel
+uploads
+*.log

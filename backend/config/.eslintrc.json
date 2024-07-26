@@ -1,0 +1,45 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "eslint-plugin-tsdoc"
+    ],
+    "parserOptions": {
+      "project": ["./config/tsconfig.json"]
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:node/recommended"
+    ],
+    
+    "rules": {
+        
+        "no-console": ["error", { "allow": ["warn", "info", "error"] }],
+        "space-before-blocks": 2,
+        "@typescript-eslint/quotes": ["error", "single", {"allowTemplateLiterals": true}],
+        "semi": ["error", "always"],
+        "no-var": "error",
+        "no-await-in-loop": "error",
+        "@typescript-eslint/no-explicit-any": "error",
+        "no-async-promise-executor": "error",
+        "no-promise-executor-return": "error",
+        "require-atomic-updates": "error",
+        "max-nested-callbacks": ["error", 3],
+        "no-return-await": "error",
+        "prefer-promise-reject-errors": "error",
+        "node/handle-callback-err": "error",
+        "node/no-unsupported-features/es-syntax": 0,
+        "node/no-unsupported-features/es-builtins": 0,
+        "node/no-sync": "error",
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/no-misused-promises": "error",
+        "@typescript-eslint/promise-function-async": "error",
+        "tsdoc/syntax": "off",
+        "node/no-missing-import": 0
+    }
+  }
+  

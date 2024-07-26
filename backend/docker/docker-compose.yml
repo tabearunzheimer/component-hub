@@ -1,0 +1,50 @@
+version: '3.9'
+services:
+  test-service:
+    build:
+      context: ../../
+      dockerfile: ./scripts/local.Dockerfile
+      tags:
+        - tabea-runzheimer/component-hub:1.0.0
+    container_name: test-service
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: admin
+      DB_PASSWORD: test
+      DB_NAME: admin 
+  mysql:
+    image: mariadb:10.7.3
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: test 
+      MYSQL_DATABASE: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: test
+    restart: unless-stopped
+    volumes:
+      - ../config/mariadb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+  redis:
+    image: redis:7.0.5
+    container_name: redis
+    restart: unless-stopped
+    environment:
+      REDIS_PASSWORD: test
+    command:
+      - /bin/sh
+      - -c
+      - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD variable is not set}"
+    ports:
+      - "6379:6379"
+  ros-bridge:
+    image: cfc.informatik.hs-fulda.de/campus-freecity/morgana/ros-bridge:latest
+    container_name: ros-bridge
+    restart: unless-stopped
+    environment:
+      REDIS_PASSWORD: test
+    ports:
+      - "9090:9090"

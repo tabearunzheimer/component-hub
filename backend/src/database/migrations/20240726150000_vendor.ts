@@ -1,0 +1,19 @@
+import type { Knex } from "knex";
+
+
+export async function up(knex: Knex): Promise<void> {
+    return knex.schema.createTable('vendorInfos', (table) => {
+        table.increments('vendorInfoId').primary(),
+            table.string('name').notNullable(),
+            table.double('price').notNullable(),
+            table.dateTime('lastBought'),
+            table.dateTime('createdAt').notNullable().defaultTo(knex.raw('CURRENT_TIMESTAMP'));
+            table.dateTime('updatedAt').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+    });
+}
+
+
+export async function down(knex: Knex): Promise<void> {
+    return knex.schema.dropTableIfExists('vendorInfos');
+}
+
