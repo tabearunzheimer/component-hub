@@ -25,8 +25,8 @@ export class ComponentService extends Service implements I_Component_Service {
 
     
     addComponentVendorById = async (req: Request, res: Response, next: NextFunction) =>  {
-        const { componentId, vendorId } = req.body;
-        const result = await this.db.addComponentVendorByIdDB(componentId, vendorId);
+        const { componentId, vendorId, price } = req.body;
+        const result = await this.db.addComponentVendorByIdDB(componentId, vendorId, price);
         if (result instanceof CustomErrorHandler) return next(result);
         res.status(200).json({ componentId, vendorId });
     }
@@ -68,10 +68,10 @@ export class ComponentService extends Service implements I_Component_Service {
     }
 
     createVendorInfo = async (req: Request, res: Response, next: NextFunction) => {
-        const { name, lastBought, price } = req.body;
-        const result = await this.db.createVendorInfoDB(name, lastBought, price);
+        const { name } = req.body;
+        const result = await this.db.createVendorInfoDB(name);
         if (result instanceof CustomErrorHandler) return next(result);
-        res.status(200).json({ name, lastBought, price, vendorInfoId: result.insertId });
+        res.status(200).json({ name, vendorInfoId: result.insertId });
     }
 
     getVendorInfoById = async (req: Request, res: Response, next: NextFunction) => {

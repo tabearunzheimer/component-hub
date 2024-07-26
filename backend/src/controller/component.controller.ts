@@ -39,21 +39,20 @@ export class ComponentRouter extends CustomRouter {
         this.router.get('/component/:componentId/export', validateRequest, this.service.exportComponents);
         this.router.put('/component/:componentId', validateRequest, this.service.updateComponentById);
         this.router.delete('/component/:componentId', validateRequest, this.service.deleteComponentById);
-        this.router.delete('/component/:componentId', validateRequest, this.service.deleteComponentById);
-
         this.router.patch('/component/:componentId/location', validateRequest, this.service.addComponentVendorById);
         this.router.patch('/component/:componentId/stock', validateRequest, this.service.deleteComponentVendorById);
         
         this.router.post('/component/:componentId/vendor/:vendorInfoId', validateRequest, this.service.createVendorInfo);
         this.router.delete('/component/:componentId/vendor/:vendorInfoId', validateRequest, this.service.deleteVendorById);
+        this.router.patch('/component/:componentId/vendor/:vendorInfoId/price', validateRequest, this.service.updateVendorInfoPriceById);
+        this.router.patch('/component/:componentId/vendor/:vendorInfoId/bought', validateRequest, this.service.updateVendorInfoLastBoughtById);
 
         this.router.get('/vendorinfos', validateRequest, this.service.getAllVendorInfos);
         this.router.get('/vendors', validateRequest, this.service.getAllVendors);
         this.router.post('/vendor', validateRequest, this.service.createVendorInfo);
         this.router.get('/vendor/:vendorInfoId', validateRequest, this.service.getVendorInfoById);
         this.router.delete('/vendor/:vendorInfoId', validateRequest, this.service.deleteVendorById);
-        this.router.patch('/vendor/:vendorInfoId/price', validateRequest, this.service.updateVendorInfoPriceById);
-        this.router.patch('/vendor/:vendorInfoId/bought', validateRequest, this.service.updateVendorInfoLastBoughtById);
+        
         
     }
 

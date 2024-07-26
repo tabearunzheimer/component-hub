@@ -109,5 +109,5 @@ Coming soon
   - [ ] write location in database
   - [ ] set write location as env
 - [ ] update component 
-  - [ ] database vendor informations
+  - [x] database vendor informations
   - [ ] file handler 

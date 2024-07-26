@@ -6,6 +6,8 @@ export async function up(knex: Knex): Promise<void> {
         table.increments('componentVendorId').primary(),
             table.integer('vendorInfoId').unsigned().nullable(),
             table.integer('componentId').unsigned().notNullable(),
+            table.double('price').notNullable(),
+            table.dateTime('lastBought'),
             table.foreign('vendorInfoId').references('vendorInfoId').inTable('vendorInfos');
             table.foreign('componentId').references('componentId').inTable('components'),
             table.dateTime('updatedAt').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

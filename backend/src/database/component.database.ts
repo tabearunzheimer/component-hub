@@ -1,5 +1,5 @@
 import { ResultSetHeader } from 'mysql2';
-import { I_Component_Id, I_Component_Database, I_Component, I_Vendor_Info } from '../models/component/component.model';
+import { I_Component_Id, I_Component_Database, I_Component, I_Vendor_Info, I_Vendor_Info_Id } from '../models/component/component.model';
 import { CustomErrorHandler } from '../services/error.service';
 
 import { KnexDatabase } from './knex.database';
@@ -68,42 +68,60 @@ export class ComponentDatabase extends KnexDatabase implements I_Component_Datab
         })();
     }
 
-    updateComponentStockByIdDB(componentId: number, stock: number): Promise<number | CustomErrorHandler> {
+    async updateComponentStockByIdDB(componentId: number, stock: number): Promise<number | CustomErrorHandler> {
         return this.queryWrapper(async () => {
             return this.db('components').update({ stock }).where({ componentId });
         })();
     }
-    updateComponentLocationByIdDB(componentId: number, location: number): Promise<number | CustomErrorHandler> {
+    async updateComponentLocationByIdDB(componentId: number, location: number): Promise<number | CustomErrorHandler> {
         return this.queryWrapper(async () => {
             return this.db('components').update({ location }).where({ componentId });
         })();
     }
-    addComponentVendorByIdDB(componentId: number, vendorId: number): Promise<number | CustomErrorHandler> {
-        throw new Error('Method not implemented.');
+    async addComponentVendorByIdDB(componentId: number, vendorId: number, price: number): Promise<number | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db('componentVendorInfo').insert({ componentId, 'vendorInfoId' : vendorId, price });
+        })();
     }
-    deleteComponentVendorByIdDB(componentId: number, vendorId: number): Promise<number | CustomErrorHandler> {
-        throw new Error('Method not implemented.');
+    async deleteComponentVendorByIdDB(componentId: number, vendorId: number): Promise<number | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db('componentVendorInfo').where({ componentId, 'vendorInfoId' : vendorId }).delete();
+        })();
     }
-    getAllVendorInfosDB(): Promise<I_Vendor_Info[] | CustomErrorHandler> {
-        throw new Error('Method not implemented.');
+    async getAllVendorInfosDB(): Promise<I_Vendor_Info[] | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db('vendorInfos') as Promise<I_Vendor_Info_Id[] | CustomErrorHandler>;
+        })();
     }
-    getAllVendorsDB(): Promise<string[] | CustomErrorHandler> {
-        throw new Error('Method not implemented.');
+    async getAllVendorsDB(): Promise<string[] | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db.select('name').from('vendorInfos') as Promise<string[] | CustomErrorHandler>;
+        })();
     }
-    createVendorInfoDB(name: string, lastBought: Date, price: number): Promise<ResultSetHeader | CustomErrorHandler> {
-        throw new Error('Method not implemented.');
+    async createVendorInfoDB(name: string): Promise<ResultSetHeader | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db('components').insert({ name });
+        })();
     }
-    getVendorInfoByIdDB(vendorId: number): Promise<I_Vendor_Info[] | CustomErrorHandler> {
-        throw new Error('Method not implemented.');
+    async getVendorInfoByIdDB(vendorId: number): Promise<I_Vendor_Info[] | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db('vendorInfos').where({'vendorInfoId' : vendorId}) as Promise<I_Vendor_Info_Id[] | CustomErrorHandler>;
+        })();
     }
-    deleteVendorByIdDB(vendorId: number): Promise<number | CustomErrorHandler> {
-        throw new Error('Method not implemented.');
+    async deleteVendorByIdDB(vendorId: number): Promise<number | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db('vendorInfos').where({'vendorInfoId' : vendorId}).del();
+        })();
     }
-    updateVendorInfoPriceByIdDB(vendorInfo: number, price: number): Promise<number | CustomErrorHandler> {
-        throw new Error('Method not implemented.');
+    async updateVendorInfoPriceByIdDB(vendorId: number, price: number): Promise<number | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db('vendorInfoId').update({ price }).where({ 'vendorInfoId' : vendorId });
+        })();
     }
-    updateVendorInfoLastBoughtByIdDB(vendorInfo: number, lastBought: Date): Promise<number | CustomErrorHandler> {
-        throw new Error('Method not implemented.');
+    async updateVendorInfoLastBoughtByIdDB(vendorId: number, lastBought: Date): Promise<number | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db('vendorInfoId').update({ lastBought }).where({ 'vendorInfoId' : vendorId });
+        })();
     }
 
 }

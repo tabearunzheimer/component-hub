@@ -22,9 +22,7 @@ export interface I_Component_Id extends I_Component {
 
 
 export interface I_Vendor_Info {
-    lastBought: Date;
     name: string;
-    price: number;
 }
 
 export interface I_Vendor_Info_Id extends I_Vendor_Info {
@@ -44,13 +42,13 @@ export interface I_Component_Database  extends KnexDatabase{
     updateComponentLocationByIdDB(componentId: number, location: number): Promise<number | CustomErrorHandler>,
 
     //Vendor Component
-    addComponentVendorByIdDB(componentId: number, vendorId: number): Promise<number | CustomErrorHandler>,
+    addComponentVendorByIdDB(componentId: number, vendorId: number, price: number): Promise<number | CustomErrorHandler>,
     deleteComponentVendorByIdDB(componentId: number, vendorId: number): Promise<number | CustomErrorHandler>,
     
     //Vendor   
     getAllVendorInfosDB(): Promise<I_Vendor_Info[] | CustomErrorHandler>,
     getAllVendorsDB(): Promise<string[] | CustomErrorHandler>,
-    createVendorInfoDB(name: string, lastBought: Date, price: number): Promise<ResultSetHeader | CustomErrorHandler>, 
+    createVendorInfoDB(name: string): Promise<ResultSetHeader | CustomErrorHandler>, 
     getVendorInfoByIdDB(vendorId: number): Promise<I_Vendor_Info[] | CustomErrorHandler>
     deleteVendorByIdDB(vendorId: number): Promise<number | CustomErrorHandler>
     updateVendorInfoPriceByIdDB(vendorInfo: number, price: number): Promise<number | CustomErrorHandler>,
