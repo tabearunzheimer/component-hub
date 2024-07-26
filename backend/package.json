@@ -7,6 +7,7 @@
       "start:dev": "nodemon --config ./config/nodemon.json",
       "build": "tsc -p ./config/tsconfig.json",
       "lint": "eslint --ignore-path ./config/.eslintignore --config ./config/.eslintrc.json ./src --ext .ts",
+      "build:tsc:docker": "tsc -p ./tsconfig.json",  
       "format": "eslint --ignore-path ./config/.eslintignore --config ./config/.eslintrc.json ./src --ext .ts --fix",
       "test": "jest --config=config/jest.config.ts",
       "test:ci": "jest --config=config/jest.config.ts --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit",

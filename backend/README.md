@@ -111,3 +111,4 @@ Coming soon
 - [x] update component 
   - [x] database vendor informations
   - [x] file handler 
+- [x] add docker files
