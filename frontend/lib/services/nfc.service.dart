@@ -49,7 +49,7 @@ class NFCService {
 
       try {
         await ndef.write(message);
-        result.value = ['Success to "Ndef Write"'];
+        result.value = ['Success'];
         NfcManager.instance.stopSession();
       } catch (e) {
         result.value = [e.toString()];

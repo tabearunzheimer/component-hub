@@ -19,10 +19,16 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
-    MyApp.sharedPref.getServerURL();
-    _urlController.text =
-        SettingsPage.fullUrl.substring(SettingsPage.fullUrl.indexOf("//") + 2);
+    setServerUrl();
     super.initState();
+  }
+
+  setServerUrl() async {
+    await MyApp.sharedPref.getServerURL();
+    setState(() {
+      _urlController.text = SettingsPage.fullUrl
+          .substring(SettingsPage.fullUrl.indexOf("//") + 2);
+    });
   }
 
   @override
@@ -38,11 +44,10 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  buildUrl() {
+  buildUrl() async {
     setState(() {
       SettingsPage.fullUrl = _serverMethod + _urlController.text;
       MyApp.sharedPref.saveServerURL(_serverMethod + _urlController.text);
-      print('savedf');
     });
   }
 
