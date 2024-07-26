@@ -95,7 +95,7 @@ function padZero(num: number): string {
  */
 export async function updateSchemas() {
     const modelPath = path.join(__dirname, '../models');
-    const filesToImport = ['component/component.schema'];
+    const filesToImport = ['component/component.schema', 'location/location.schema', 'project/project.schema'];
     try {
         const promises = filesToImport.map(async (file) => {
           const { default: fileSchemes } = await import(path.join(modelPath, file));

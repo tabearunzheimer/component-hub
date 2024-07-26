@@ -100,15 +100,4 @@ Coming soon
 
 ## Roadmap
 
-- [x] Add knex migration files for database setup
-- [x] test component controller, service, database files
-- [ ] add remaining handlers
-  - [ ] project
-  - [ ] location
-- [x] update file handler 
-  - [x] write location in database
-  - [x] set write location as env
-- [x] update component 
-  - [x] database vendor informations
-  - [x] file handler 
-- [x] add docker files
+- [ ] Full Test
