@@ -9,6 +9,6 @@
 Simplify your inventory management and focus more on creating with Component Hub.
 
 ## Installation
-1. Install the backend following the instructions here. (Coming soon)
+1. Install the backend following the instructions [here](./backend/README.md).
 2. Setup the frontends you need following the instructions [here](./frontend/README.md).
 
