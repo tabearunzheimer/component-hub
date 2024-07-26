@@ -43,10 +43,11 @@ ToDo
 - [x] add drawer navigation 
 - [ ] Hub Page
   - [x] Datatable sort 
+  - [x] search
   - [ ] Filters
 - [ ] Project (edit) Page
 - [ ] Location (edit) Page
-- [ ] Persist backend url
+- [x] Persist backend url
 - [x] Add url_launcher for read-tag to component page
 - [ ] component Page
   - [ ] add desktop view

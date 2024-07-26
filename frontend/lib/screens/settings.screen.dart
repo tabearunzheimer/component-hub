@@ -1,6 +1,7 @@
+import 'dart:ui_web';
+
 import 'package:flutter/material.dart';
-import 'package:inventory/widgets/app.bar.dart';
-import 'package:inventory/widgets/navigation.bottom.dart';
+import 'package:inventory/main.dart';
 import 'package:inventory/widgets/responsive.device.dart';
 import 'package:inventory/widgets/scaffold.dart';
 
@@ -19,6 +20,14 @@ class _SettingsPageState extends State<SettingsPage> {
   final TextEditingController _urlController = TextEditingController();
 
   @override
+  void initState() {
+    MyApp.sharedPref.getServerURL();
+    _urlController.text =
+        SettingsPage.fullUrl.substring(SettingsPage.fullUrl.indexOf("//") + 2);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: "Settings",
@@ -34,13 +43,14 @@ class _SettingsPageState extends State<SettingsPage> {
   buildUrl() {
     setState(() {
       SettingsPage.fullUrl = _serverMethod + _urlController.text;
-      // TODO: save in storage
+      MyApp.sharedPref.saveServerURL(_serverMethod + _urlController.text);
+      print('savedf');
     });
   }
 
   Widget buildMobile() {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: ListView(
         children: [
           ListTile(
@@ -88,7 +98,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   padding: EdgeInsets.only(left: 10),
                 ),
                 IconButton(
-                    onPressed: () => buildUrl, icon: const Icon(Icons.save)),
+                    onPressed: () => buildUrl(), icon: const Icon(Icons.save)),
                 const Padding(
                   padding: EdgeInsets.only(right: 10),
                 ),

@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
+import 'package:inventory/models/part.model.dart';
 import 'package:inventory/services/nfc.service.dart';
 import 'package:inventory/widgets/category.dart';
 import 'package:inventory/widgets/number.input.dart';
@@ -19,10 +21,15 @@ class PartPage extends StatefulWidget {
 class _PartPageState extends State<PartPage> {
   String? selectedLocation;
   NumberInput stock = const NumberInput(initialValue: 123);
+  PartModel part = parts[1];
 
   @override
   void initState() {
     debugPrint('PartScreen received partId: ${widget.partId}');
+    if (widget.partId != null) {
+      part =
+          parts.firstWhere((element) => element.componentId == widget.partId);
+    }
     super.initState();
   }
 
@@ -40,7 +47,7 @@ class _PartPageState extends State<PartPage> {
 
   Widget buildMobile() {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -48,13 +55,13 @@ class _PartPageState extends State<PartPage> {
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
@@ -66,8 +73,8 @@ class _PartPageState extends State<PartPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
+            const Padding(
+              padding: EdgeInsets.only(
                 top: 10,
               ),
             ),
@@ -81,7 +88,7 @@ class _PartPageState extends State<PartPage> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        "Partname",
+                        part.name,
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const Spacer(),
@@ -141,19 +148,16 @@ class _PartPageState extends State<PartPage> {
                     runSpacing: 5,
                     direction: Axis.horizontal,
                     crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Text("Categories: "),
-                      CategoryWidget(title: "Category1"),
-                      SizedBox(width: 5),
-                      CategoryWidget(title: "Electronics"),
-                      SizedBox(width: 5),
-                      CategoryWidget(title: "Mechanics"),
-                    ],
+                    children: part.category.split(';').map((category) {
+                      return CategoryWidget(
+                        title: category,
+                      );
+                    }).toList(),
                   ),
                   const NumberInput(initialValue: 123),
                   Row(
                     children: [
-                      Text("Location: "),
+                      Text('Location: ${part.location.toString()}'),
                       // Make location clickable
                       GestureDetector(
                         onTap: () {
@@ -171,58 +175,54 @@ class _PartPageState extends State<PartPage> {
             ),
             SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ExpansionTile(
                     childrenPadding:
-                        EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    title: Text("Description"),
+                        const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                    title: const Text("Description"),
+                    expandedAlignment: Alignment.topLeft,
                     children: [
                       Text(
-                        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                        part.description,
                       ),
                     ],
                   ),
                   ExpansionTile(
                     childrenPadding:
-                        EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    title: Text("Specs"),
-                    children: [
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      // Implement logic to receive info as json and build table
-                    ],
+                        const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                    title: const Text("Specs"),
+                    children: part.specs.entries
+                        .map((entry) => ListTile(
+                              title: Text(entry.key),
+                              subtitle: Text(entry.value),
+                            ))
+                        .toList(),
                   ),
                   ExpansionTile(
                     childrenPadding:
                         EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    title: Text("Resources"),
-                    children: [
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      // Implement logic to receive info as json and build table
-                    ],
+                    title: const Text("Resources"),
+                    children: part.urls.entries
+                        .map((entry) => ListTile(
+                              title: Text(entry.key),
+                              subtitle: Text(entry.value),
+                            ))
+                        .toList(),
                   ),
                   ExpansionTile(
                     childrenPadding:
-                        EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    title: Text("Vendor Info"),
-                    children: [
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      Text('HAHAHA'),
-                      // Implement logic to receive info as json and build table
-                    ],
+                        const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                    title: const Text("Vendor Info"),
+                    children: part.vendorInfo
+                        .map((vendorInfo) => ListTile(
+                              title: Text(vendorInfo.name),
+                              subtitle: Text(
+                                  'Last Bought: ${DateFormat('yyyy-MM-dd HH:mm').format(vendorInfo.lastBought)}'),
+                              trailing: Text(
+                                  '\$${vendorInfo.price.toStringAsFixed(2)}'),
+                            ))
+                        .toList(),
                   ),
                 ],
               ),

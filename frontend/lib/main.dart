@@ -4,13 +4,18 @@ import 'package:inventory/screens/inventory.screen.dart';
 import 'package:inventory/screens/part.screen.dart';
 import 'package:inventory/screens/scanner.screen.dart';
 import 'package:inventory/screens/settings.screen.dart';
+import 'package:inventory/services/shared.preferences.service.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  static final SharedPreferencesHandler sharedPref = SharedPreferencesHandler();
+
+  MyApp({super.key}) {
+    sharedPref.init();
+  }
 
   @override
   Widget build(BuildContext context) {
