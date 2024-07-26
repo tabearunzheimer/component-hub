@@ -29,7 +29,6 @@ export interface I_Vendor_Info_Id extends I_Vendor_Info {
     componentId: number,
 }
 
-    // TODO: update variables
 export interface I_Component_Database  extends KnexDatabase{
     getAllComponentsDB(): Promise<I_Component_Id[] | CustomErrorHandler>,
     createComponentDB(name: string, description: string, category: string, stock: number, urls: string, location: number): Promise<ResultSetHeader | CustomErrorHandler>, 
@@ -53,6 +52,10 @@ export interface I_Component_Database  extends KnexDatabase{
     deleteVendorByIdDB(vendorId: number): Promise<number | CustomErrorHandler>
     updateVendorInfoPriceByIdDB(vendorInfo: number, price: number): Promise<number | CustomErrorHandler>,
     updateVendorInfoLastBoughtByIdDB(vendorInfo: number, lastBought: Date): Promise<number | CustomErrorHandler>,
+
+    getFilePath(fileId: number): Promise<string[]|CustomErrorHandler>
+    uploadImageDB(path: string, componentId: number): Promise<number | CustomErrorHandler>,
+    deleteImageDB(fileId: number, componentId: number): Promise<number | CustomErrorHandler>,
 }
 
 export interface I_Component_Service extends Service {
@@ -76,4 +79,9 @@ export interface I_Component_Service extends Service {
     deleteVendorById(req: Request, res: Response, next: NextFunction): void
     updateVendorInfoPriceById(req: Request, res: Response, next: NextFunction): void
     updateVendorInfoLastBoughtById(req: Request, res: Response, next: NextFunction): void
+
+    uploadImage(req: Request, res: Response, next: NextFunction): void,
+    deleteImage(req: Request, res: Response, next: NextFunction): void,
+    getImage(req: Request, res: Response, next: NextFunction): void,
+
 }

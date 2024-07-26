@@ -105,9 +105,9 @@ Coming soon
 - [ ] add remaining handlers
   - [ ] project
   - [ ] location
-- [ ] update file handler 
-  - [ ] write location in database
-  - [ ] set write location as env
-- [ ] update component 
+- [x] update file handler 
+  - [x] write location in database
+  - [x] set write location as env
+- [x] update component 
   - [x] database vendor informations
-  - [ ] file handler 
+  - [x] file handler 

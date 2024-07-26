@@ -3,7 +3,6 @@ import { Service } from '../models/service/service.model';
 import { CustomErrorHandler } from './error.service';
 import { I_Component_Database, I_Component_Id, I_Component_Service, I_Vendor_Info } from '../models/component/component.model';
 import { createJsonFile, deleteFile, readJsonFile } from './file.service';
-import { dateFormatter } from './validator.service';
 
 /**
  * Service class for handling component-related operations.
@@ -21,6 +20,32 @@ export class ComponentService extends Service implements I_Component_Service {
      */
     constructor(db: I_Component_Database) {
         super(db);
+    }
+    
+    getImage = async (req: Request, res: Response, next: NextFunction) => {
+        const {fileId} = req.body;
+        let path = await this.db.getFilePath(fileId);
+        if (path instanceof CustomErrorHandler) return next(path);
+        res.status(200).sendFile(path[0]);
+    }
+
+    uploadImage = async (req: Request, res: Response, next: NextFunction) => {        
+        const imagePath = (req.file.path);        
+        const {componentId} = req.body;     
+       const result = await this.db.uploadImageDB(imagePath, componentId);
+        if (result instanceof CustomErrorHandler) return next(result);
+        res.status(200).send({componentId: result[0]});
+    }
+
+    deleteImage = async (req: Request, res: Response, next: NextFunction) => {
+        const { componentId, fileId} = req.body;
+        let path = await this.db.getFilePath(fileId);
+        if (path instanceof CustomErrorHandler) return next(path);
+        let result = await deleteFile(path[0]);
+        if (result instanceof CustomErrorHandler) return next(result);
+        result = await this.db.deleteImageDB(fileId, componentId);
+        if (result instanceof CustomErrorHandler) return next(result);
+        res.status(200).json({ componentId, fileId });
     }
 
     

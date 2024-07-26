@@ -95,7 +95,7 @@ export class Server {
     private configureMulter(): multer {
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, 'uploads/'); // Destination folder for uploaded files
+                cb(null, config.ASSET_PATH); // Destination folder for uploaded files
             },
             filename: (req, file, cb) => {
                 cb(null, file.originalname); // Use the original file name

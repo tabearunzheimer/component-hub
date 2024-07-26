@@ -50,14 +50,22 @@ schemas['/component/export'] = {
 schemas['/component/import'] = {
     GET: componentScheme
 };
-schemas['/components/location'] = {
+schemas['/component/location'] = {
     PATCH: Joi.object({
         location: Joi.number().integer().min(1),
     })
 };
-schemas['/components/stock'] = {
+schemas['/component/stock'] = {
     PATCH: Joi.object({
         stock: Joi.number().integer().min(0),
+    })
+};
+schemas['/component/image'] = {
+    GET: Joi.object({
+        fileId: Joi.number().integer().min(0),
+    }),
+    DELETE: Joi.object({
+        fileId: Joi.number().integer().min(0),
     })
 };
 

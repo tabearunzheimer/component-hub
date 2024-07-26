@@ -66,4 +66,8 @@ export const config = {
      * The environment mode of the application (e.g., development, production).
      */
     NODE_ENV: process.env.NODE_ENV || "development",
+    /**
+     * Path where images and documents are saved
+     */
+    ASSET_PATH: process.env.ASSET_PATH || 'uploads/'
 };

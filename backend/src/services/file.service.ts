@@ -42,10 +42,11 @@ export async function readJsonFile(filename: string): Promise<I_Component | Cust
  * Deletes a file from the filesystem.
  * @param filename - The name of the file to be deleted.
  */
-export async function deleteFile(filename: string): Promise<void> {
+export async function deleteFile(filename: string): Promise<number|CustomErrorHandler> {
     try {
         await fs.promises.unlink(filename);
         logger.info('File deleted successfully:', filename);
+        return 1;
     } catch (error) {
         console.error('Error deleting file:', error);
         throw new CustomErrorHandler(500, error, 'Something went wrong trying to delete the file. Please try again later or contact an admin.');

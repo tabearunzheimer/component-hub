@@ -42,6 +42,10 @@ export class ComponentRouter extends CustomRouter {
         this.router.patch('/component/:componentId/location', validateRequest, this.service.addComponentVendorById);
         this.router.patch('/component/:componentId/stock', validateRequest, this.service.deleteComponentVendorById);
         
+        this.router.get('/component/:componentId/image', validateRequest, this.service.getImage);
+        this.router.post('/component/:componentId/image', this.multerUpload.single('file'), this.service.uploadImage);
+        this.router.delete ('/component/:componentId/image', validateRequest, this.service.deleteImage);
+        
         this.router.post('/component/:componentId/vendor/:vendorInfoId', validateRequest, this.service.createVendorInfo);
         this.router.delete('/component/:componentId/vendor/:vendorInfoId', validateRequest, this.service.deleteVendorById);
         this.router.patch('/component/:componentId/vendor/:vendorInfoId/price', validateRequest, this.service.updateVendorInfoPriceById);

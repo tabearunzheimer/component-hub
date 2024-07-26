@@ -5,6 +5,35 @@ import { CustomErrorHandler } from '../services/error.service';
 import { KnexDatabase } from './knex.database';
 
 export class ComponentDatabase extends KnexDatabase implements I_Component_Database {
+    
+    uploadImageDB(path: string, componentId: number): Promise<number | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db.transaction(async (trx) => {
+                const result = await trx('files').insert({ path, type: 'image' }, 'fileId');
+                if (result instanceof CustomErrorHandler) return result;
+                await trx('fileStore').insert({fileId: result[0], componentId})
+                return result[0] as number;
+            })
+        })();
+    }
+
+    deleteImageDB(fileId: number, componentId: number): Promise<number | CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db.transaction(async (trx) => {
+                let result = await trx('files').where({ fileId }).delete();
+                result = await trx('fileStore').where({fileId, componentId}).delete();
+                return result;
+            })
+        })();
+    }
+
+    getFilePath(fileId: number): Promise<string[]|CustomErrorHandler> {
+        return this.queryWrapper(async () => {
+            return this.db('files')
+                .where({fileId});
+        })();
+    }
+
 
     async getComponentsByNameDB(name: string, orderBy?: string, sortOrder?: string): Promise<CustomErrorHandler | I_Component_Id[]> {
         if (orderBy && sortOrder) {
