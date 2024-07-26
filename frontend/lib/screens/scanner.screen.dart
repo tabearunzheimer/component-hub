@@ -72,15 +72,14 @@ class _ScannerPageState extends State<ScannerPage> {
                                         ),
                                       );
                                     }
-                                    if (index == 1) {
-                                      RegExp myRegExp =
-                                          RegExp(r'Component: (\w+)');
-                                      RegExpMatch? match =
-                                          myRegExp.firstMatch(value[1]);
-                                      partId = match?.group(1) != null
-                                          ? int.parse(match!.group(1)!)
-                                          : 1;
-                                    }
+                                    RegExp myRegExp =
+                                        RegExp(r'Component Id: (\d+)');
+                                    RegExpMatch? match =
+                                        myRegExp.firstMatch(value[2]);
+                                    partId = match?.group(1) != null
+                                        ? int.parse(match!.group(1)!)
+                                        : 1;
+
                                     return ListTile(
                                       title: Text(value[index - 1]),
                                     );

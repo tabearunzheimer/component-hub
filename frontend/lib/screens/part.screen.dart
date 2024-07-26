@@ -118,7 +118,8 @@ class _PartPageState extends State<PartPage> {
                                       const Text(
                                           "To write the part info to the Tag enable NFC on your device and hold the device close to the Tag. Press start afterwards."),
                                       IconButton(
-                                        onPressed: () => nfc.ndefWrite(),
+                                        onPressed: () => nfc.ndefWrite(
+                                            part.name, part.componentId),
                                         icon: const Icon(
                                             Icons.wifi_protected_setup),
                                       ),

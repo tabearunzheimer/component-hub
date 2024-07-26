@@ -26,7 +26,7 @@ class NFCService {
     });
   }
 
-  void ndefWrite() {
+  void ndefWrite(String name, int componentId) {
     //PartModel part) {
     NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
       var ndef = Ndef.from(tag);
@@ -38,7 +38,8 @@ class NFCService {
 
       NdefMessage message = NdefMessage([
         NdefRecord.createText('Inventory Management'),
-        NdefRecord.createText('Component: 123'), //${part.part}'),
+        NdefRecord.createText('Name: $name'), //${part.part}'),
+        NdefRecord.createText('Component Id: $componentId'), //${part.part}'),
         NdefRecord.createText(
             'Click card to view Component Information'), //${part.part}'),
 
