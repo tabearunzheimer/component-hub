@@ -24,33 +24,21 @@ class PartModel {
   });
 
   factory PartModel.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {
-        "name": String name,
-        "category": String category,
-        "description": String description,
-        "imageUrl": String imageUrl,
-        "stock": int stock,
-        "vendorInfo": List<VendorPartInfo> vendorInfo,
-        "urls": Map<String, String> urls,
-        "location": int location,
-        "componentId": int componentId,
-        "specs": Map<String, String> specs,
-      } =>
-        PartModel(
-          name: name,
-          category: category,
-          description: description,
-          imageUrl: imageUrl,
-          stock: stock,
-          vendorInfo: vendorInfo,
-          urls: urls,
-          location: location,
-          componentId: componentId,
-          specs: specs,
-        ),
-      _ => throw const FormatException('Failed to load part.'),
-    };
+    return PartModel(
+      name: json['name'] as String,
+      category: json['category'] as String,
+      description: json['description'] as String,
+      imageUrl: json['imageUrl'] as String,
+      stock: json['stock'] as int,
+      vendorInfo: (json['vendorInfo'] as List<dynamic>?)
+              ?.map((e) => VendorPartInfo.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      urls: json['urls'] as Map<String, String>,
+      location: json['location'] as int,
+      componentId: json['componentId'] as int,
+      specs: json['specs'] as Map<String, String>,
+    );
   }
 
   static onSearch(List<PartModel> list, String value) {
@@ -62,6 +50,21 @@ class PartModel {
           element.category.toLowerCase().contains(value)) filtered.add(element);
     }
     return filtered;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'category': category,
+      'description': description,
+      'imageUrl': imageUrl,
+      'stock': stock,
+      'vendorInfo': vendorInfo.map((e) => e.toJson()).toList(),
+      'urls': urls,
+      'location': location,
+      'componentId': componentId,
+      'specs': specs,
+    };
   }
 }
 

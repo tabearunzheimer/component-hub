@@ -46,7 +46,7 @@ ToDo
   - [x] search
   - [ ] Filters
 - [ ] Project (edit) Page
-  - [ ] app view
+  - [x] app view
   - [ ] desktop view
 - [ ] Location (edit) Page
   - [x] app view
@@ -54,7 +54,7 @@ ToDo
 - [x] Persist backend url
 - [x] Add url_launcher for read-tag to component page
 - [ ] component Page
-  - [ ] add desktop view
+  - [ ] desktop view
   - [ ] Make categories clickable(x)/ editable
   - [ ] Make Location clickable(x)/ editable
   - [x] update description
