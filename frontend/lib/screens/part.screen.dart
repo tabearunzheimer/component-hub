@@ -5,9 +5,13 @@ import 'package:intl/intl.dart';
 import 'package:inventory/models/part.model.dart';
 import 'package:inventory/services/nfc.service.dart';
 import 'package:inventory/widgets/category.dart';
+import 'package:inventory/widgets/description.dart';
 import 'package:inventory/widgets/number.input.dart';
+import 'package:inventory/widgets/resources.dart';
 import 'package:inventory/widgets/responsive.device.dart';
 import 'package:inventory/widgets/scaffold.dart';
+import 'package:inventory/widgets/specs.dart';
+import 'package:inventory/widgets/vendor.dart';
 
 class PartPage extends StatefulWidget {
   final int? partId;
@@ -178,53 +182,10 @@ class _PartPageState extends State<PartPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  ExpansionTile(
-                    childrenPadding:
-                        const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    title: const Text("Description"),
-                    expandedAlignment: Alignment.topLeft,
-                    children: [
-                      Text(
-                        part.description,
-                      ),
-                    ],
-                  ),
-                  ExpansionTile(
-                    childrenPadding:
-                        const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    title: const Text("Specs"),
-                    children: part.specs.entries
-                        .map((entry) => ListTile(
-                              title: Text(entry.key),
-                              subtitle: Text(entry.value),
-                            ))
-                        .toList(),
-                  ),
-                  ExpansionTile(
-                    childrenPadding:
-                        EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    title: const Text("Resources"),
-                    children: part.urls.entries
-                        .map((entry) => ListTile(
-                              title: Text(entry.key),
-                              subtitle: Text(entry.value),
-                            ))
-                        .toList(),
-                  ),
-                  ExpansionTile(
-                    childrenPadding:
-                        const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    title: const Text("Vendor Info"),
-                    children: part.vendorInfo
-                        .map((vendorInfo) => ListTile(
-                              title: Text(vendorInfo.name),
-                              subtitle: Text(
-                                  'Last Bought: ${DateFormat('yyyy-MM-dd HH:mm').format(vendorInfo.lastBought)}'),
-                              trailing: Text(
-                                  '\$${vendorInfo.price.toStringAsFixed(2)}'),
-                            ))
-                        .toList(),
-                  ),
+                  Description(text: part.description),
+                  Specs(specs: part.specs),
+                  Resources(resources: part.urls),
+                  Vendor(vendor: part.vendorInfo),
                 ],
               ),
             ),

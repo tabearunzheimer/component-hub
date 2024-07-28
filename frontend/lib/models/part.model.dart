@@ -73,18 +73,37 @@ class VendorPartInfo {
       {required this.lastBought, required this.name, required this.price});
 
   factory VendorPartInfo.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {
-        'lastBought': DateTime lastBought,
-        'name': String name,
-        'price': double price,
-      } =>
-        VendorPartInfo(
-          lastBought: lastBought,
-          name: name,
-          price: price,
-        ),
-      _ => throw const FormatException('Failed to load vendor info.'),
+    try {
+      // Extract values from the JSON map
+      final lastBoughtString = json['lastBought'] as String;
+      final name = json['name'] as String;
+      final price = json['price'] as double?; // Check for null
+
+      // Validate and parse values
+      if (lastBoughtString == null || name == null || price == null) {
+        throw FormatException('Missing required fields in vendor info.');
+      }
+
+      return VendorPartInfo(
+        lastBought: DateTime.parse(lastBoughtString),
+        name: name,
+        price: price!, // Use non-null assertion after validation
+      );
+    } on FormatException catch (e) {
+      // Handle parsing errors (e.g., invalid date format)
+      print('Error parsing vendor info: $e');
+      rethrow; // Rethrow the exception for further handling
+    } catch (e) {
+      // Handle other unexpected errors
+      print('Unexpected error parsing vendor info: $e');
+      rethrow; // Rethrow the exception for further handling
+    }
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'lastBought': lastBought.toIso8601String(),
+      'name': name,
+      'price': price,
     };
   }
 }

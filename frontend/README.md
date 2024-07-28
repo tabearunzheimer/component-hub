@@ -53,10 +53,10 @@ ToDo
   - [ ] add desktop view
   - [ ] Make categories clickable(x)/ editable
   - [ ] Make Location clickable/ editable
-  - [ ] update description
-  - [ ] update/add/remove specs
-  - [ ] update/add/remove resources
-  - [ ] update/add/remove vendor info
+  - [x] update description
+  - [x] update/add/remove specs
+  - [x] update/add/remove resources
+  - [x] update/add/remove vendor info
   - [ ] edit full component
 - [ ] api integration
 - [ ] add impressum, datenschutz, about
