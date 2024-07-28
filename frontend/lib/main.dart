@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory/screens/inventory.screen.dart';
+import 'package:inventory/screens/location.screen.dart';
 import 'package:inventory/screens/part.screen.dart';
 import 'package:inventory/screens/scanner.screen.dart';
 import 'package:inventory/screens/settings.screen.dart';
@@ -56,6 +57,11 @@ class MyApp extends StatelessWidget {
           final partId = ModalRoute.of(context)!.settings.arguments
               as int?; // Allow null argument
           return PartPage(partId: partId);
+        },
+        '/locations-page': (context) {
+          final locationId = ModalRoute.of(context)!.settings.arguments
+              as int?; // Allow null argument
+          return LocationPage(locationId: locationId);
         },
       },
     );

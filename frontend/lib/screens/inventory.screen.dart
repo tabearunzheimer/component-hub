@@ -125,7 +125,7 @@ class _InventoryPageState extends State<InventoryPage> {
   }
 
   void onTapLocation(int id) {
-    Navigator.pushNamed(context, '/location-page', arguments: id);
+    Navigator.pushNamed(context, '/locations-page', arguments: id);
   }
 
   void onTapComponent(int id) {

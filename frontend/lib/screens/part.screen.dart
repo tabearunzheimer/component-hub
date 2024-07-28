@@ -160,20 +160,21 @@ class _PartPageState extends State<PartPage> {
                     }).toList(),
                   ),
                   const NumberInput(initialValue: 123),
-                  Row(
-                    children: [
-                      Text('Location: ${part.location.toString()}'),
-                      // Make location clickable
-                      GestureDetector(
-                        onTap: () {
-                          // Handle location selection
-                          setState(() {
-                            selectedLocation = "yxz";
-                          });
-                        },
-                        child: Text(selectedLocation ?? "yxz"),
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      // Handle location selection
+                      setState(() {
+                        Navigator.pushNamed(context, '/locations-page',
+                            arguments: part.location);
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Text('Location: ${part.location.toString()}'),
+                        Text(part.location.toString() ??
+                            "yxz"), // replace with name
+                      ],
+                    ),
                   ),
                 ],
               ),

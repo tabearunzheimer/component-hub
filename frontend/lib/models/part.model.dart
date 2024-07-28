@@ -129,7 +129,7 @@ List<PartModel> parts = [
       'weight': '150g',
       'dimensions': '8x4x2 cm',
     },
-    location: 124,
+    location: 1,
     componentId: 457,
   ),
   PartModel(
@@ -152,7 +152,7 @@ List<PartModel> parts = [
       'weight': '200g',
       'dimensions': '10x5x3 cm',
     },
-    location: 123,
+    location: 2,
     componentId: 456,
   )
 ];
