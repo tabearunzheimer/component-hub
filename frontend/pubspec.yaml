@@ -78,6 +78,7 @@ flutter:
     - assets/placeholder/placeholder.png
     - assets/logos/logo.jpg
     - assets/logos/logo_black.jpg
+    - assets/logos/logo-nobg.png
      # - assets\icons\searchIcon.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

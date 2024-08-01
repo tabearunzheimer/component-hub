@@ -1,4 +1,4 @@
-# <img src="../frontend/assets/logos/logo_whitespace.png" height=80> <span style="font-size: 2em;" > Component Hub</span> 
+# <img src="../frontend/assets/logos/logo-nobg.png" height=80> <span style="font-size: 2em;" > Component Hub</span> 
 
 **Component Hub** is an intuitive inventory management app tailored for private makers and engineers. This innovative solution leverages the power of NFC tags, allowing you to seamlessly access your component inventory, costs, specifications, and datasheets directly from your phone. No need for additional devices like labelers for QR codes or barcode scanners. With Component Hub, managing your components becomes faster, easier, and more efficient, all within the convenience of your mobile device.
 

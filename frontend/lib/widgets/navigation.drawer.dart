@@ -21,7 +21,7 @@ class CustomDrawerNavigation {
                 children: [
                   Container(
                     height: 100,
-                    child: Image.asset('assets/logos/logo.jpg'),
+                    child: Image.asset('assets/logos/logo-nobg.png'),
                   ),
                   const Text(
                     'Component Hub',
