@@ -1,8 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:inventory/screens/about.screen.dart';
 import 'package:inventory/screens/inventory.screen.dart';
+import 'package:inventory/screens/legal.notice.screen.dart';
 import 'package:inventory/screens/location.screen.dart';
 import 'package:inventory/screens/part.screen.dart';
+import 'package:inventory/screens/privacy.screen.dart';
 import 'package:inventory/screens/project.screen.dart';
 import 'package:inventory/screens/scanner.screen.dart';
 import 'package:inventory/screens/settings.screen.dart';
@@ -45,6 +48,9 @@ class MyApp extends StatelessWidget {
       initialRoute: kIsWeb ? '/inventory' : '/scanner',
       routes: {
         '/scanner': (context) => const ScannerPage(title: "Scanner"),
+        '/about': (context) => AboutPage(),
+        '/privacy-policy': (context) => PrivacyPage(title: "Privacy Policy"),
+        '/legal-notice': (context) => LegalNoticePage(),
         '/inventory': (context) {
           final category = ModalRoute.of(context)!.settings.arguments
               as String?; // Allow null argument

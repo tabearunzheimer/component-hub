@@ -63,4 +63,4 @@ ToDo
   - [x] update/add/remove vendor info
   - [ ] edit full component
 - [ ] api integration
-- [ ] add impressum, datenschutz, about
+- [x] add impressum, datenschutz, about

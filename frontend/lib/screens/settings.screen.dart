@@ -24,7 +24,8 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   setServerUrl() async {
-    await MyApp.sharedPref.getServerURL();
+    String? url = await MyApp.sharedPref.getServerURL();
+    if (url == null) return;
     setState(() {
       _urlController.text = SettingsPage.fullUrl
           .substring(SettingsPage.fullUrl.indexOf("//") + 2);
@@ -39,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ResponsiveDeviceLayout(
         mobile: buildMobile(),
         tablet: buildMobile(),
-        desktop: buildDesktop(),
+        desktop: buildMobile(),
       ),
     );
   }
@@ -111,15 +112,21 @@ class _SettingsPageState extends State<SettingsPage> {
           const Divider(),
           ListTile(
             title: const Text("About"),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed('/about');
+            },
           ),
           ListTile(
-            title: const Text("Impressum"),
-            onTap: () {},
+            title: const Text("Legal Notice"),
+            onTap: () {
+              Navigator.of(context).pushNamed('/legal-notice');
+            },
           ),
           ListTile(
-            title: const Text("Datenschutz"),
-            onTap: () {},
+            title: const Text("Privacy Policy"),
+            onTap: () {
+              Navigator.of(context).pushNamed('/privacy-policy');
+            },
           ),
           const Divider(),
           const Text(
