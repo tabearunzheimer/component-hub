@@ -4,6 +4,7 @@
  */
 
 
+import { config } from '../config/config';
 import { I_Component_Service } from '../models/component/component.model';
 import { validateRequest } from '../services/validator.service';
 import { CustomRouter } from './router.controller';
@@ -31,7 +32,7 @@ export class ComponentRouter extends CustomRouter {
      * Loads routes for component-related endpoints.
      */
     loadRoutes(): void {
-        // TODO: add patch route
+        this.router.get('/',  (req, res) => {res.json({version: config.VERSION});});
         this.router.get('/components', validateRequest, this.service.getAllComponents);
         this.router.post('/component', validateRequest, this.service.createComponent);
         this.router.post('/component/import', this.multerUpload.single('file'), this.service.importComponents);

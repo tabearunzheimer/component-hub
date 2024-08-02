@@ -31,7 +31,6 @@ export class LocationRouter extends CustomRouter {
      * Loads routes for location-related endpoints.
      */
     loadRoutes(): void {
-        // TODO: add patch route
         this.router.get('/locations', validateRequest, this.service.getAllLocations);
         this.router.post('/location', validateRequest, this.service.createLocation);
         this.router.get('/location/:locationId', validateRequest, this.service.getLocationById);

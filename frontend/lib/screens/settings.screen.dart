@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory/main.dart';
+import 'package:inventory/services/generic.service.dart';
 import 'package:inventory/widgets/responsive.device.dart';
 import 'package:inventory/widgets/scaffold.dart';
 
@@ -16,9 +17,13 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   String _serverMethod = "http://";
   final TextEditingController _urlController = TextEditingController();
+  late int minVersion;
+  late int maxVersion;
 
   @override
   void initState() {
+    minVersion = getExtendedVersionNumber("1.0.0");
+    maxVersion = getExtendedVersionNumber("1.0.0");
     setServerUrl();
     super.initState();
   }
@@ -46,10 +51,36 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   buildUrl() async {
-    setState(() {
-      SettingsPage.fullUrl = _serverMethod + _urlController.text;
-      MyApp.sharedPref.saveServerURL(_serverMethod + _urlController.text);
-    });
+    String url = _serverMethod + _urlController.text;
+    GenericAPI api = GenericAPI(baseUrl: url);
+    var response = await api.getVersion();
+    String? version = response['version'];
+    SnackBar snackBar;
+
+    if (version == null) {
+      snackBar = const SnackBar(
+        content: Text("Error trying to contact server"),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }
+    int? serverVersion = getExtendedVersionNumber(version);
+    if (serverVersion >= minVersion && serverVersion <= maxVersion) {
+      snackBar = const SnackBar(
+        content: Text("Success!"),
+      );
+      setState(() {
+        SettingsPage.fullUrl = url;
+        MyApp.sharedPref.saveServerURL(url);
+      });
+    } else {
+      snackBar = const SnackBar(
+        content: Text("Error! Incompatible Server version"),
+        backgroundColor: Colors.red,
+      );
+    }
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   Widget buildMobile() {
@@ -187,7 +218,8 @@ class _SettingsPageState extends State<SettingsPage> {
             const Padding(
               padding: EdgeInsets.only(left: 10),
             ),
-            IconButton(onPressed: () => buildUrl, icon: const Icon(Icons.save)),
+            IconButton(
+                onPressed: () => buildUrl(), icon: const Icon(Icons.save)),
             const Padding(
               padding: EdgeInsets.only(right: 10),
             ),
@@ -199,5 +231,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget buildTablet() {
     return buildMobile();
+  }
+
+  int getExtendedVersionNumber(String version) {
+    List versionCells = version.split('.');
+    versionCells = versionCells.map((i) => int.parse(i)).toList();
+    return versionCells[0] * 100000 + versionCells[1] * 1000 + versionCells[2];
   }
 }

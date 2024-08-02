@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:inventory/models/part.model.dart';
 import 'package:inventory/services/nfc.service.dart';
 import 'package:inventory/widgets/category.dart';

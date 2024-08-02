@@ -5,6 +5,7 @@ import { config } from '../config/config';
 import { RouteHandler } from '../models/server/server.model';
 import { updateSchemas } from './validator.service';
 import { logger } from './logger.service';
+import cors from 'cors';
 import multer from 'multer';
 
 /**
@@ -80,6 +81,7 @@ export class Server {
      * @param {express.RequestHandler[]} middlewares - The array of middleware functions.
      */
     private initRouteHandler(middlewares?: express.RequestHandler[]): void {
+        this.app.use(cors());
         this.app.use(express.urlencoded({ extended: false }));
         this.app.use(express.json());
         if (!middlewares) return;
